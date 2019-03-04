@@ -1,2 +1,6 @@
 server:
   port: 9200
+
+logging:
+  level:
+    org.springframework.web: DEBUG

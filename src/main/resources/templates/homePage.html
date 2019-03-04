@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extrasspringsecurity4">
+<head lang="pl">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Default title</title>
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" rel="stylesheet"
+          media="screen,projection"/>
+</head>
+<body>
+<div class="container"><br/>
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert"
+           aria-label="close">×</a>
+        <h1 th:text="${my_message}">Test</h1>
+        <h1 th:text="${my_message2}">Test_2</h1>
+        <strong>Success!</strong> It is working as we expected.
+    </div>
+</div>
+<script src="/webjars/jquery/3.3.1-2/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
