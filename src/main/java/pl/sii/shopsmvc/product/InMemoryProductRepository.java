@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryProductRepository implements ProductRepository {
-    private Map<String, Product> products = new HashMap<>();
+    Map<String, Product> products = new HashMap<>();
 
     @Override
     public Product update(String name, Product product) throws EntityNotFoundException {

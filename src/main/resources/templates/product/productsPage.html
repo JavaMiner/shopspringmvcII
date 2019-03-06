@@ -13,9 +13,42 @@
         </div>
     </div>
     <div class="card bg-light mb-3">
-        <div class="card-header">Products</div>
+        <div class="card-header" th:text="#{products}">Products</div>
         <div class="card-body">
-            ....
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th th:text="#{product.name}">Nazwa</th>
+                    <th th:text="#{product.price}">Cena</th>
+                    <th th:text="#{product.quantity}">Ilość</th>
+                    <th th:text="#{product.unit}">Jednostka</th>
+                    <th th:text="#{product.productionDate}">Data produkcji</th>
+                    <th th:text="#{product.attributes}">Cechy</th>
+                    <th th:text="#{product.look}">Wygląd</th>
+                    <th th:text="#{product.delete}">Usuń</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product : ${allProducts}">
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.quantity}"></td>
+                    <td th:text="#{'product.unit.' + ${product.unit}}"></td>
+                    <td th:text="${product.productionDate}"></td>
+                    <td>
+                        <ul th:each="attr : ${product.attributes}">
+                            <li th:text="${attr}"/>
+                        </ul>
+                    </td>
+                    <td><!--img th:src="${product.pictureName}" width="70" height="70"/></td-->
+                    <td>
+                        <form class="form-horizontal" th:action="@{/products}" method="delete">
+                            <button type="submit" name="removeProduct" class="fas fa-trash btn btn-danger" th:value="${product.name}"/>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
