@@ -31,7 +31,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().and()
-                .httpBasic();
+                .httpBasic()
+                .and()
+                .rememberMe().key("rememberMeSuperKey");
     }
 
     @Bean
