@@ -36,6 +36,7 @@ dependencies {
     compile group: 'org.webjars', name: 'font-awesome', version: '5.7.2'
 
     compileOnly "org.springframework.boot:spring-boot-configuration-processor"
-
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

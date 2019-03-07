@@ -14,11 +14,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import pl.sii.shopsmvc.date.USLocaleDateFormatter;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
 @Configuration
+@EnableSwagger2
 public class WebConfiguration implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(WebConfiguration.class);
 
@@ -70,5 +74,13 @@ public class WebConfiguration implements WebMvcConfigurer {
         messageSource.setBasename("messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
+    }
+
+    @Bean
+    public Docket restApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .paths(paths ->  paths.startsWith("/api"))
+                .build();
     }
 }
