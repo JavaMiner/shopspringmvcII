@@ -25,7 +25,7 @@ public class ProductApiController {
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) {
         HttpStatus status = HttpStatus.OK;
         if (!productRepository.exists(product.getName())) {
             status = HttpStatus.CREATED;
