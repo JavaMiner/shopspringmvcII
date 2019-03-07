@@ -35,6 +35,7 @@ dependencies {
     compile group: 'org.webjars', name: 'jquery', version: '3.3.1-2'
     compile group: 'org.webjars', name: 'font-awesome', version: '5.7.2'
 
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor"
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

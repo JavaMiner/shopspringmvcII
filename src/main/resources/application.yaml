@@ -8,3 +8,10 @@ logging:
 spring:
   thymeleaf:
     cache: false
+
+upload:
+  pictures:
+    dirName: picture
+    uploadPath: file:${upload.pictures.dirName}
+    anonymousPicture: classpath:/images/anonymous.png
+    defaultProductPicture: classpath:/images/cube.png
