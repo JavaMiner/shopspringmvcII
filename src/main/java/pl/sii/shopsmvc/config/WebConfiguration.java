@@ -1,6 +1,7 @@
 package pl.sii.shopsmvc.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,17 +9,38 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import pl.sii.shopsmvc.date.USLocaleDateFormatter;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
-    @Autowired
-    private USLocaleDateFormatter usLocaleDateFormatter;
+    private static final Logger logger = LoggerFactory.getLogger(WebConfiguration.class);
+
+    private final USLocaleDateFormatter usLocaleDateFormatter;
+    private final PictureUploadProperties pictureUploadProperties;
+
+    public WebConfiguration(USLocaleDateFormatter usLocaleDateFormatter, PictureUploadProperties pictureUploadProperties) {
+        this.usLocaleDateFormatter = usLocaleDateFormatter;
+        this.pictureUploadProperties = pictureUploadProperties;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String absolutePath = null;
+        try {
+            absolutePath = pictureUploadProperties.getUploadPath().getFile().getAbsolutePath();
+        } catch (IOException e) {
+            logger.warn(e.getMessage(), e);
+        }
+
+        registry.addResourceHandler("/" + pictureUploadProperties.getDirName() + "/**").addResourceLocations("file:" + absolutePath +"/");
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
