@@ -1,6 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '2.1.3.RELEASE'
+        springVersion = '5.1.4.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -27,7 +28,10 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-    
+    compile("org.springframework.security:spring-security-core:${springVersion}")
+    compile("org.springframework.security:spring-security-web:${springVersion}")
+    compile("org.springframework.security:spring-security-config:${springVersion}")
+
     compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.11.RELEASE'
     compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.3.0'
     
