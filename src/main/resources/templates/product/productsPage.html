@@ -13,75 +13,63 @@
             <div class="row">
                 <div class="col-6">
                 <form th:action="@{/products}" th:object="${product}" method="post">
-                    <div class="form-group row" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+                    <div class="form-group row" th:classappend="${#fields.hasErrors('name')}? 'is-invalid'">
                         <label for="name" class="col-sm-1 col-form-label" th:text="#{product.name}">Nazwa</label>
                         <div class="has-feedback col-sm-10">
-                            <input th:field="${product.name}" id="name" th:errorclass="has-error" type="text"
-                                   class="form-control" value="name"  th:placeholder="#{product.name}"/>
-                            <!-- TODO check error
-                            <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  th:if="${#fields.hasErrors('name')}"></span>
+                            <input th:field="${product.name}" id="name" th:errorclass="is-invalid" type="text"
+                                   class="form-control" value="name" th:placeholder="#{product.name}"/>
+                            <span class="form-control-feedback" th:if="${#fields.hasErrors('name')}"></span>
                             <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Błąd</p>
--->
                         </div>
                     </div>
                     <!-- Price -->
-                    <div class="form-group row"  th:classappend="${#fields.hasErrors('price')}? 'has-error'">
+                    <div class="form-group row"  th:classappend="${#fields.hasErrors('price')}? 'is-invalid'">
                         <label for="price" class="col-sm-1 col-form-label" th:text="#{product.price}">Cena</label>
                         <div class="has-feedback col-sm-10">
-                            <input th:field="${product.price}" id="price" th:errorclass="has-error" type="text"
+                            <input th:field="${product.price}" id="price" th:errorclass="is-invalid" type="text"
                                    class="form-control" value="price" th:placeholder="#{product.price}"/>
-                            <!-- TODO check error -->
-                            <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  th:if="${#fields.hasErrors('price')}"></span>
+                            <span class="form-control-feedback" th:if="${#fields.hasErrors('price')}"></span>
                             <p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Błąd</p>
 
                         </div>
                     </div>
                     <!-- quantity -->
-                    <div class="form-group row" th:classappend="${#fields.hasErrors('quantity')}? 'has-error'">
+                    <div class="form-group row" th:classappend="${#fields.hasErrors('quantity')}? 'is-invalid'">
                         <label for="quantity" class="col-sm-1 col-form-label" th:text="#{product.quantity}">Ilość</label>
                         <div class="has-feedback col-sm-10">
-                            <input th:field="${product.quantity}" id="quantity" th:errorclass="has-error"
+                            <input th:field="${product.quantity}" id="quantity" th:errorclass="is-invalid"
                                    type="text"
                                    class="form-control" value="quantity" th:placeholder="#{product.quantity}"/>
-                            <!-- TODO check error -->
-                            <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  th:if="${#fields.hasErrors('quantity')}"></span>
+                            <span class="form-control-feedback" th:if="${#fields.hasErrors('quantity')}"></span>
                             <p class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">Błąd</p>
-
                         </div>
                     </div>
                     <!-- Units -->
-                    <div class="form-group row" th:classappend="${#fields.hasErrors('unit')}? 'has-error'">
+                    <div class="form-group row" th:classappend="${#fields.hasErrors('unit')}? 'is-invalid'">
                         <label for="unit" class="col-sm-1 col-form-label" th:text="#{product.unit}">Jednostka</label>
                         <div class="has-feedback col-sm-10">
-                            <select th:field="*{unit}" id="unit" th:errorclass="has-error" class="form-control">
+                            <select th:field="*{unit}" id="unit" th:errorclass="is-invalid" class="form-control">
                                 <option disabled="true" selected="selected" value="">Chose unit</option>
                                 <option th:each="unit : ${units}"
                                         th:value="${unit}"
                                         th:text="#{${'product.unit.' + unit}}">Unit</option>
                             </select>
-                            <!-- TODO check error -->
-                            <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  th:if="${#fields.hasErrors('unit')}"></span>
+                            <span class="form-control-feedback" th:if="${#fields.hasErrors('unit')}"></span>
                             <p class="text-danger" th:if="${#fields.hasErrors('unit')}" th:errors="*{unit}">Błąd</p>
                         </div>
                     </div>
                     <!--ProductionDate-->
-                    <div class="form-group row" th:classappend="${#fields.hasErrors('productionDate')}? 'has-error'">
+                    <div class="form-group row" th:classappend="${#fields.hasErrors('productionDate')}? 'is-invalid'">
                         <label for="productionDate" class="col-sm-1 col-form-label" th:text="#{product.productionDate}">Data produkcji</label>
                         <div class="has-feedback col-sm-10">
-                            <input th:field="${product.productionDate}" id="productionDate" th:errorclass="has-error"
+                            <input th:field="${product.productionDate}" id="productionDate" th:errorclass="is-invalid"
                                    type="text"
                                    class="form-control" value="quantity" th:placeholder="${dateFormat}"/>
-                            <!-- TODO check error -->
-                            <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  th:if="${#fields.hasErrors('productionDate')}"></span>
+                            <span class="form-control-feedback" th:if="${#fields.hasErrors('productionDate')}"></span>
                             <p class="text-danger" th:if="${#fields.hasErrors('productionDate')}" th:errors="*{productionDate}">Błąd</p>
                         </div>
                     </div>
-                    <div class="form-group row" th:classappend="${#fields.hasErrors('attributes')}? 'has-error'">
+                    <div class="form-group row" th:classappend="${#fields.hasErrors('attributes')}? 'is-invalid'">
                         <label for="attributes" class="col-sm-1 control-label"><span th:text="#{product.attributes}">Cechy</span>
                             <button class="btn btn-outline-dark" type="submit" name="addAttribute">
                                 <i class="fas fa-plus"></i>

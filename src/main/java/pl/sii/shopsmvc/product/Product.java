@@ -1,17 +1,35 @@
 package pl.sii.shopsmvc.product;
 
+import org.springframework.format.annotation.NumberFormat;
+import pl.sii.shopsmvc.date.FeatureLocalDate;
+
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Product {
+    @Size(min = 4)
     private String name;
+
+    @NotNull
+    @DecimalMin("0.01")
+    @NumberFormat(style = NumberFormat.Style.NUMBER)
     private BigDecimal price;
+
+    @NotNull
+    @Min(0)
     private Integer quantity;
+
+    @NotNull
     private Unit unit;
+
+    @NotNull
+    @FeatureLocalDate
     private LocalDate productionDate;
 
+    @NotEmpty
     private List<String> attributes = new ArrayList<>();
     private String pictureName;
 
