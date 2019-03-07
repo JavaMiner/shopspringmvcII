@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.sii.shopsmvc.error.EntityNotFoundException;
 import pl.sii.shopsmvc.product.Product;
 import pl.sii.shopsmvc.product.ProductRepository;
 
@@ -34,4 +35,15 @@ public class ProductApiController {
         return new ResponseEntity<>(saveProduct, status);
     }
 
+    @RequestMapping(value = "/product/{name}", method = RequestMethod.PUT)
+    public ResponseEntity<Product> updateProduct(@PathVariable String name, @Valid @RequestBody Product product) throws EntityNotFoundException {
+        Product saveProduct = productRepository.update(name, product);
+        return new ResponseEntity<>(saveProduct, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/product/{name}", method = RequestMethod.DELETE)
+    public ResponseEntity<Product> deleteProduct(@PathVariable String name) throws EntityNotFoundException {
+        productRepository.delete(name);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
