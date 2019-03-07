@@ -102,7 +102,6 @@
                 </div>
 
                 <div class="col-1">
-                    <!-- TODO -->
                 <img th:src="@{/uploadedProductPicture}" width="100" height="100"/>
                 <div class="text-danger" th:text="${error}" th:if="${error}">Bład ładowania pliku</div>
                 <form th:action="@{/products}" method="post" enctype="multipart/form-data" class="col m8 s12 offset-m2">
@@ -149,7 +148,7 @@
                             <li th:text="${attr}"/>
                         </ul>
                     </td>
-                    <td><!--img th:src="${product.pictureName}" width="70" height="70"/></td-->
+                    <td><img th:src="${product.pictureName}" width="70" height="70"/></td>
                     <td>
                         <form class="form-horizontal" th:action="@{/products}" method="post">
                             <button type="submit" name="removeProduct" class="fas fa-trash btn btn-danger" th:value="${product.name}"/>

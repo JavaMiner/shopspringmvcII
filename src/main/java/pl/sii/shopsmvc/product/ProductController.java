@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.sii.shopsmvc.config.PictureUploadProperties;
 import pl.sii.shopsmvc.date.USLocaleDateFormatter;
 import pl.sii.shopsmvc.error.EntityNotFoundException;
 
@@ -26,7 +27,11 @@ public class ProductController {
     @Autowired
     private ProductSession productSession;
 
-    @Autowired USLocaleDateFormatter usLocaleDateFormatter;
+    @Autowired
+    private USLocaleDateFormatter usLocaleDateFormatter;
+
+    @Autowired
+    private PictureUploadProperties pictureUploadProperties;
 
     @ModelAttribute("product")
     public Product getProduct() {
@@ -79,8 +84,8 @@ public class ProductController {
             return "product/productsPage";
         }
 
-        //String picturePath = "/" + pictureUploadProperties.getDirName() + "/" +productSession.getPicturePath().getFilename();
-        //product.setPictureName(picturePath);
+        String picturePath = "/" + pictureUploadProperties.getDirName() + "/" +productSession.getPicturePath().getFilename();
+        product.setPictureName(picturePath);
         productRepository.save(product);
         model.clear();
         productSession.clear();
