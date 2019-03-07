@@ -20,18 +20,19 @@ import java.util.Locale;
 
 @Controller
 public class ProductController {
-    @Autowired
-    @Qualifier("inMemoryProductRepository")
     private ProductRepository productRepository;
-
-    @Autowired
     private ProductSession productSession;
-
-    @Autowired
     private USLocaleDateFormatter usLocaleDateFormatter;
-
-    @Autowired
     private PictureUploadProperties pictureUploadProperties;
+
+    public ProductController(@Qualifier("inMemoryProductRepository") ProductRepository productRepository,
+                             ProductSession productSession, USLocaleDateFormatter usLocaleDateFormatter,
+                             PictureUploadProperties pictureUploadProperties) {
+        this.productRepository = productRepository;
+        this.productSession = productSession;
+        this.usLocaleDateFormatter = usLocaleDateFormatter;
+        this.pictureUploadProperties = pictureUploadProperties;
+    }
 
     @ModelAttribute("product")
     public Product getProduct() {
