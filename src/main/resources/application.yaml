@@ -9,6 +9,14 @@ logging:
 spring:
   thymeleaf:
     cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ___client-id___
+            client-secret: ___client-secret___
+            scope: profile, email
 
 upload:
   pictures:
@@ -16,3 +24,4 @@ upload:
     uploadPath: file:${upload.pictures.dirName}
     anonymousPicture: classpath:/images/anonymous.png
     defaultProductPicture: classpath:/images/cube.png
+

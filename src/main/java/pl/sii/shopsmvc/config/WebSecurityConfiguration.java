@@ -33,6 +33,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin().and()
                 .httpBasic()
                 .and()
+                .oauth2Login()
+                .and()
                 .rememberMe().key("rememberMeSuperKey");
     }
 

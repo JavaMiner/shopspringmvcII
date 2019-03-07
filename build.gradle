@@ -31,7 +31,10 @@ dependencies {
     compile("org.springframework.security:spring-security-core:${springVersion}")
     compile("org.springframework.security:spring-security-web:${springVersion}")
     compile("org.springframework.security:spring-security-config:${springVersion}")
-
+    
+    compile "org.springframework.security:spring-security-oauth2-client:${springVersion}"
+    compile "org.springframework.security:spring-security-oauth2-jose:${springVersion}"
+    
     compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.11.RELEASE'
     compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.3.0'
     
