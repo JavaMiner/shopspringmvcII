@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/">
+<head lang="pl">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title th:text="${status}">404</title>
+    <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <h1 class="text-danger col-md-2 col-md-offset-5" th:text="${error}">Strona nie istnieje</h1>
+        <p class="text-danger col-md-2 col-md-offset-5" th:text="${message}">żądana strona nie istnieje</p>
+    </div>
+</div>
+</body>
+</html>

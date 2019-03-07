@@ -1,19 +1,23 @@
 package pl.sii.shopsmvc.product;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import pl.sii.shopsmvc.config.PictureUploadProperties;
 import pl.sii.shopsmvc.date.USLocaleDateFormatter;
 import pl.sii.shopsmvc.error.EntityNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -24,14 +28,16 @@ public class ProductController {
     private ProductSession productSession;
     private USLocaleDateFormatter usLocaleDateFormatter;
     private PictureUploadProperties pictureUploadProperties;
+    private MessageSource messageSource;
 
     public ProductController(@Qualifier("inMemoryProductRepository") ProductRepository productRepository,
                              ProductSession productSession, USLocaleDateFormatter usLocaleDateFormatter,
-                             PictureUploadProperties pictureUploadProperties) {
+                             PictureUploadProperties pictureUploadProperties, MessageSource messageSource) {
         this.productRepository = productRepository;
         this.productSession = productSession;
         this.usLocaleDateFormatter = usLocaleDateFormatter;
         this.pictureUploadProperties = pictureUploadProperties;
+        this.messageSource = messageSource;
     }
 
     @ModelAttribute("product")
@@ -91,5 +97,18 @@ public class ProductController {
         model.clear();
         productSession.clear();
         return "redirect:/products";
+    }
+
+
+    @ExceptionHandler(value = IOException.class)
+    public String handleIOException(Locale locale, Model model) {
+        model.addAttribute("error", messageSource.getMessage("upload.io.exception", null, locale));
+        return "product/productsPage";
+    }
+
+    @RequestMapping("uploadError")
+    public String onUploadError(Locale locale, Model model) {
+        model.addAttribute("error", messageSource.getMessage("upload.file.too.big", null, locale));
+        return "product/productsPage";
     }
 }
