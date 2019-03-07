@@ -3,13 +3,16 @@ package pl.sii.shopsmvc.product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.sii.shopsmvc.date.USLocaleDateFormatter;
+import pl.sii.shopsmvc.error.EntityNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -17,7 +20,7 @@ import java.util.Locale;
 @Controller
 public class ProductController {
     @Autowired
-    @Qualifier("mockMemoryProductRepository")
+    @Qualifier("inMemoryProductRepository")
     private ProductRepository productRepository;
 
     @Autowired
@@ -40,6 +43,11 @@ public class ProductController {
         return Arrays.asList(Unit.values());
     }
 
+    @ModelAttribute("dateFormat")
+    public String localFormat(Locale locale) {
+        return usLocaleDateFormatter.getPattern(locale);
+    }
+
     @RequestMapping("/products")
     public String displayProducts() {
         return "product/productsPage";
@@ -48,7 +56,6 @@ public class ProductController {
     @RequestMapping(value = "/products", params = {"addAttribute"}, method = RequestMethod.POST)
     public String addAttribute(Product product, BindingResult bindingResult) {
         product.getAttributes().add(null);
-        //productSession.saveProduct(product);
         return "product/productsPage";
     }
 
@@ -59,8 +66,24 @@ public class ProductController {
         return "product/productsPage";
     }
 
-    @ModelAttribute("dateFormat")
-    public String localFormat(Locale locale) {
-        return usLocaleDateFormatter.getPattern(locale);
+    @RequestMapping(value = "/products", params = {"removeProduct"}, method = RequestMethod.POST)
+    public String removeProduct(HttpServletRequest req) throws EntityNotFoundException {
+        String productName = req.getParameter("removeProduct");
+        productRepository.delete(productName);
+        return "redirect:/products";
+    }
+
+    @RequestMapping(value = "/products", params = {"addProduct"}, method = RequestMethod.POST)
+    public String saveProduct(@Valid Product product, BindingResult bindingResult, ModelMap model) {
+        if (bindingResult.hasErrors()) {
+            return "product/productsPage";
+        }
+
+        //String picturePath = "/" + pictureUploadProperties.getDirName() + "/" +productSession.getPicturePath().getFilename();
+        //product.setPictureName(picturePath);
+        productRepository.save(product);
+        model.clear();
+        productSession.clear();
+        return "redirect:/products";
     }
 }

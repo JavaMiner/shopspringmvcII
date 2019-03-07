@@ -163,7 +163,7 @@
                     </td>
                     <td><!--img th:src="${product.pictureName}" width="70" height="70"/></td-->
                     <td>
-                        <form class="form-horizontal" th:action="@{/products}" method="delete">
+                        <form class="form-horizontal" th:action="@{/products}" method="post">
                             <button type="submit" name="removeProduct" class="fas fa-trash btn btn-danger" th:value="${product.name}"/>
                         </form>
                     </td>

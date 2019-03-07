@@ -1,5 +1,6 @@
 package pl.sii.shopsmvc.product;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +11,7 @@ import java.util.Arrays;
 import static pl.sii.shopsmvc.product.Unit.Kg;
 
 @Repository
+@Lazy
 public class MockMemoryProductRepository extends InMemoryProductRepository {
     @PostConstruct
     private void init(){
