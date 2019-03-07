@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default">
+<head lang="pl">
+    <title>Product list</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card">
+        <div class="card-header">Zamów produkt</div>
+        <div class="card-body">
+            <form class="form-horizontal" th:action="@{/orders}" method="post">
+                <select class="form-control" name="productName">
+                    <option th:each="product : *{availableProducts}" th:text="${product.name}" th:value="${product.name}"></option>
+                </select>
+                <button type="submit" name="addOrderToBasket" class="btn btn-primary"><i class="fas fa-plus"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Koszyk</div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th th:text="#{product.name}">Nazwa</th>
+                    <th th:text="#{product.price}">Cena</th>
+                    <th th:text="#{product.quantity}">Ilość</th>
+                    <th th:text="#{product.unit}">Jednostka</th>
+                    <th th:text="#{product.productionDate}">Data produkcji</th>
+                    <th th:text="#{product.attributes}">Cechy</th>
+                    <th th:text="#{product.look}">Wygląd</th>
+                    <th th:text="#{product.delete}">Usuń</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product : ${basket}">
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.quantity}"></td>
+                    <td th:text="#{'product.unit.' + ${product.unit}}"></td>
+                    <td th:text="${product.productionDate}"></td>
+                    <td>
+                        <ul th:each="attr : ${product.attributes}">
+                            <li th:text="${attr}"/>
+                        </ul>
+                    </td>
+                    <td><img th:src="${product.pictureName}" width="70" height="70"/></td>
+                    <td>
+                        <form class="form-horizontal" th:action="@{/orders}" method="post">
+                            <button type="submit" name="removeOrderFromBasket" th:value="${product.name}"
+                                    class="btn btn-danger"><i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <form class="form-horizontal" th:action="@{/orders}" method="post">
+                <button type="submit" name="acceptBasket"
+                        class="btn btn-danger"><i class="fas fa-check"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Zamówienia</div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th th:text="#{product.name}">Nazwa</th>
+                <th th:text="#{product.price}">Cena</th>
+                <th th:text="#{product.quantity}">Ilość</th>
+                <th th:text="#{product.unit}">Jednostka</th>
+                <th th:text="#{product.productionDate}">Data produkcji</th>
+                <th th:text="#{product.attributes}">Cechy</th>
+                <th th:text="#{product.look}">Wygląd</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${orders}">
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.quantity}"></td>
+                <td th:text="#{'product.unit.' + ${product.unit}}"></td>
+                <td th:text="${product.productionDate}"></td>
+                <td>
+                    <ul th:each="attr : ${product.attributes}">
+                        <li th:text="${attr}"/>
+                    </ul>
+                </td>
+                <td><img th:src="${product.pictureName}" width="70" height="70"/></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+
+<!--th th:text="#{product.delete}">Usuń</th-->
+
+<!--td>
+    <form class="form-horizontal" th:action="@{/orders}" method="post">
+        <button type="submit" name="removeOrder" th:value="${product.name}"
+                class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>
+        </button>
+    </form>
+</td-->

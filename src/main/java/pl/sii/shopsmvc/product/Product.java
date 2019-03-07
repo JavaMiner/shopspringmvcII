@@ -88,4 +88,25 @@ public class Product {
     public void setPictureName(String pictureName) {
         this.pictureName = pictureName;
     }
+
+    public Product incQuantity() {
+        quantity++;
+        return this;
+    }
+
+    public Product decQuantity() {
+        quantity--;
+        return this;
+    }
+    public Product copy() {
+        Product product = new Product();
+        product.setName(name);
+        product.setPrice(price);
+        product.setQuantity(quantity);
+        product.setAttributes(attributes);
+        product.setPictureName(pictureName);
+        product.setUnit(unit);
+        product.setProductionDate(productionDate);
+        return product;
+    }
 }
