@@ -1,5 +1,6 @@
 package pl.sii.shopsmvc.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,8 @@ import java.time.LocalDate;
 
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
+    @Autowired
+    private USLocaleDateFormatter usLocaleDateFormatter;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -24,7 +27,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addFormatterForFieldType(LocalDate.class, new USLocaleDateFormatter());
+        registry.addFormatterForFieldType(LocalDate.class, usLocaleDateFormatter);
     }
 
     @Bean
