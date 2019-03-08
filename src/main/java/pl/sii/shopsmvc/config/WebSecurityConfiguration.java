@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -36,10 +37,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                 .and()
                 .rememberMe().key("rememberMeSuperKey");
+
+
+            http.requestMatcher(new AntPathRequestMatcher("/api/**")).csrf().disable()
+                    .authorizeRequests()
+                    .antMatchers("/api/orders").hasRole("USER")
+                    .antMatchers("/api/orders/**").hasRole("USER")
+                    .antMatchers("/api/products").hasRole("ADMIN")
+                    .antMatchers("/api/products/**").hasRole("ADMIN")
+                    .anyRequest().authenticated().and().httpBasic();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
