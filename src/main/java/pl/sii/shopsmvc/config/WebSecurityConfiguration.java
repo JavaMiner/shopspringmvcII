@@ -39,13 +39,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .rememberMe().key("rememberMeSuperKey");
 
 
-            http.requestMatcher(new AntPathRequestMatcher("/api/**")).csrf().disable()
-                    .authorizeRequests()
-                    .antMatchers("/api/orders").hasRole("USER")
-                    .antMatchers("/api/orders/**").hasRole("USER")
-                    .antMatchers("/api/products").hasRole("ADMIN")
-                    .antMatchers("/api/products/**").hasRole("ADMIN")
-                    .anyRequest().authenticated().and().httpBasic();
+//            http.requestMatcher(new AntPathRequestMatcher("/api/**")).csrf().disable()
+//                    .authorizeRequests()
+//                    .antMatchers("/api/orders").hasRole("USER")
+//                    .antMatchers("/api/orders/**").hasRole("USER")
+//                    .antMatchers("/api/products").hasRole("ADMIN")
+//                    .antMatchers("/api/products/**").hasRole("ADMIN")
+//                    .anyRequest().authenticated().and().httpBasic();
     }
 
     @Bean
